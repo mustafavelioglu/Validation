@@ -1,15 +1,14 @@
 <?php
+
 namespace Respect\Validation\Rules;
 
 /**
  * @link http://semver.org/
  */
-class Version extends AbstractRule
+class Version extends AbstractRegexRule
 {
-    public function validate($input)
+    public function getPregFormat()
     {
-        $pattern = '/^[0-9]+\.[0-9]+\.[0-9]+([+-][^+-][0-9A-Za-z-.]*)?$/';
-
-        return (bool) preg_match($pattern, $input);
+        return '/^[0-9]+\.[0-9]+\.[0-9]+([+-][^+-][0-9A-Za-z-.]*)?$/';
     }
 }

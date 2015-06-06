@@ -1,7 +1,8 @@
 <?php
+
 namespace Respect\Validation\Rules;
 
-class Regex extends AbstractRule
+class Regex extends AbstractRegexRule
 {
     public $regex;
 
@@ -10,8 +11,8 @@ class Regex extends AbstractRule
         $this->regex = $regex;
     }
 
-    public function validate($input)
+    public function getPregFormat()
     {
-        return (bool) preg_match($this->regex, $input);
+        return $this->regex;
     }
 }

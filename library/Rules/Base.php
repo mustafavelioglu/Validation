@@ -1,12 +1,14 @@
 <?php
+
 namespace Respect\Validation\Rules;
 
 use Respect\Validation\Exceptions\BaseException;
 
-class Base extends AbstractRule
+class Base extends AbstractRegexRule
 {
     public $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     public $base;
+    public $valid;
 
     public function __construct($base = null, $chars = null)
     {
@@ -19,12 +21,11 @@ class Base extends AbstractRule
             throw new BaseException(sprintf('a base between 1 and %s is required', $max));
         }
         $this->base = $base;
+        $this->valid = substr($this->chars, 0, $this->base);
     }
 
-    public function validate($input)
+    public function getPregFormat()
     {
-        $valid = substr($this->chars, 0, $this->base);
-
-        return (boolean) preg_match("@^[$valid]+$@", (string) $input);
+        return  "@^[$this->valid]+$@";
     }
 }
